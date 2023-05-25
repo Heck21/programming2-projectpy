@@ -116,7 +116,10 @@ def main() -> None:
         elif selection == "b":
             pass
         elif selection == "c":
-            pass
+            if customer_num < 1:
+                print("This cannot be selected.")
+            else:
+                wash.find_repeat_customers()
         elif selection == "d":
             pass
         else:
