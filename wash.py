@@ -5,6 +5,7 @@ TOTAL_VEHICLE_CAPACITY: int = 20
 WASH_BAY_CAPACITY: int = 3
 TIP_PERCENTAGE: float = 0.02
 CARD_PERCENTAGE: float = 0.03
+MAX_NAME_LENGTH: int = 50
 
 
 class Status(Enum):
@@ -49,3 +50,68 @@ def capacity_check(status: Status, cust_num: int) -> Status:
         status = Status.NOT_FULL
 
     return status
+
+
+def record_information() -> Customer:
+    while True:
+        customer_name = input("Enter name of customer: ")
+
+        if len(customer_name) > MAX_NAME_LENGTH:
+            print("Name length exceeded.")
+        else:
+            break
+
+    while True:
+        customer_plate_num = input("Enter customer's license plate number: ")
+
+        check = license_check(customer_plate_num)
+
+        if check is False:
+            print(
+                "Invalid license plate number. Try again.\n"
+                "License plate number should have\n"
+                "4 digits and by 2 capital letters."
+            )
+        else:
+            break
+
+    while True:
+        print(
+            f"{PaymentMethod.CASH}.\t{PaymentMethod.CASH.name}\n"
+            f"{PaymentMethod.CARD}.\t{PaymentMethod.CARD.name}"
+        )
+
+        try:
+            customer_pay_method = int(input("Select customer's payment method: "))
+            if not PaymentMethod.CASH <= customer_pay_method <= PaymentMethod.CARD:
+                raise ValueError
+        except ValueError:
+            print("Invalid entry.")
+        else:
+            break
+
+    customer = Customer(
+        name=customer_name,
+        plate_num=customer_plate_num,
+        pay_method=PaymentMethod(customer_pay_method),
+    )
+
+    return customer
+
+
+def license_check(license: str) -> bool:
+    valid_license = True
+
+    if len(license) != 6:
+        valid_license = False
+        return valid_license
+
+    if not license[:4].isdigit():
+        valid_license = False
+        return valid_license
+
+    if not license[4:].isupper():
+        valid_license = False
+        return valid_license
+
+    return valid_license
