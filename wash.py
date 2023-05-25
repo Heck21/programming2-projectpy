@@ -32,7 +32,7 @@ class Customer:
     pay_method: PaymentMethod
 
 
-current_date = date.today()
+current_date = date.today().strftime("%d-%m-%Y")
 
 SERVICE_COSTS = (
     0.0,
@@ -137,18 +137,18 @@ def print_receipt(
     tip: float,
     card: float,
     total: float,
-    date: date = current_date,
+    date: str = current_date,
 ) -> None:
-    print("RECEIPT\n")
-    print(f"Name: {customer.name}")
-    print(f"Date visited: {date:%d-%B-%Y}")
-    print(f"License plate #: {customer.plate_num}")
-    print(f"Method of payment: {customer.pay_method.name}")
-    print(f"Total service cost: ${total_service_cost:.2f}")
-    print(f"Tip percentage: {TIP_PERCENTAGE:.0%}")
-    print(f"Tip amount: ${tip:.2f}")
-    print(f"Card fee: ${card:.2f}")
-    print(f"Total: ${total:.2f}")
+    print("RECEIPT")
+    print(f"{'Name':<30} {customer.name:>20}")
+    print(f"{'Date visited':<30} {date:>20}")
+    print(f"{'License plate #':<30} {customer.plate_num:>20}")
+    print(f"{'Method of payment':<30} {customer.pay_method.name:>20}")
+    print(f"{'Total service cost ($)':<30} {total_service_cost:>20.2f}")
+    print(f"{'Tip percentage':<30} {TIP_PERCENTAGE:>20.0%}")
+    print(f"{'Tip amount ($)':<30} {tip:>20.2f}")
+    print(f"{'Card fee ($)':<30} {card:>20.2f}")
+    print(f"{'Total ($)':<30} {total:>20.2f}")
 
 
 def bay_check(bay_num: int) -> Status:
@@ -246,9 +246,9 @@ def display_sales(
     cust_total: int,
     grand_total: float,
     tip_total: float,
-    date: date = current_date,
+    date: str = current_date,
 ) -> None:
-    print(f"Sales Report for {date: %d-%B-%Y}")
+    print(f"Sales Report for {date}")
     print(f"{'SERVICE':<35} {'TOTAL ($)':>20}")
     print(f"{'Wash and Vacuum':<35} {totals[0]:>20.2f}")
     print(f"{'Engine Wash':<35} {totals[1]:>20.2f}")
