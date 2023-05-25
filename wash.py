@@ -13,7 +13,7 @@ class Status(Enum):
     FULL = 1
 
 
-class Bay(Enum):
+class Bay(IntEnum):
     VACANT = 0
     OCCUPIED = 1
 
@@ -43,7 +43,7 @@ SERVICE_COSTS = (
 bays = [Bay.VACANT for _ in range(WASH_BAY_CAPACITY)]
 
 
-def capacity_check(status: Status, cust_num: int) -> Status:
+def capacity_check(cust_num: int) -> Status:
     if cust_num >= TOTAL_VEHICLE_CAPACITY:
         status = Status.FULL
     else:
@@ -115,3 +115,67 @@ def license_check(license: str) -> bool:
         return valid_license
 
     return valid_license
+
+
+def calculate_service_cost(choice: int) -> float:
+    service_cost = SERVICE_COSTS[choice]
+
+    return service_cost
+
+
+def calculate_total_cost(total_service_cost: float, tip: float, card: float) -> float:
+    return total_service_cost + tip + card
+
+
+def print_receipt():  # TODO: add function
+    pass
+
+
+def bay_check(bay_num: int) -> Status:
+    if bay_num >= WASH_BAY_CAPACITY:
+        status = Status.FULL
+    else:
+        status = Status.NOT_FULL
+
+    return status
+
+
+def show_bay_status() -> None:
+    for idx, bay in enumerate(bays, start=1):
+        print(f"Bay {idx}\t{bay.name}")
+
+
+def bay_choice_check() -> int:
+    while True:
+        try:
+            bay_choice = int(input("Enter bay number: "))
+            if not 1 <= bay_choice <= WASH_BAY_CAPACITY:
+                raise ValueError
+        except ValueError:
+            print("Invalid entry.")
+        else:
+            return bay_choice
+
+
+def add_car() -> int:
+    while True:
+        bay_choice = bay_choice_check()
+        bay_choice -= 1
+
+        if bays[bay_choice] == Bay.OCCUPIED:
+            print("That bay is not vacant. Choose another bay.")
+        else:
+            bays[bay_choice] = Bay.OCCUPIED
+            return bay_choice + 1
+
+
+def remove_car() -> int:
+    while True:
+        bay_choice = bay_choice_check()
+        bay_choice -= 1
+
+        if bays[bay_choice] == Bay.VACANT:
+            print("That bay is not occupied.")
+        else:
+            bays[bay_choice] = Bay.VACANT
+            return bay_choice + 1
