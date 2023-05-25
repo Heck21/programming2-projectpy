@@ -144,11 +144,11 @@ def print_receipt(
     print(f"Date visited: {date:%d-%B-%Y}")
     print(f"License plate #: {customer.plate_num}")
     print(f"Method of payment: {customer.pay_method.name}")
-    print(f"Total service cost: {total_service_cost:.2f}")
+    print(f"Total service cost: ${total_service_cost:.2f}")
     print(f"Tip percentage: {TIP_PERCENTAGE:.0%}")
-    print(f"Tip amount: {tip:.2f}")
-    print(f"Card fee: {card:.2f}")
-    print(f"Total: {total:.2f}")
+    print(f"Tip amount: ${tip:.2f}")
+    print(f"Card fee: ${card:.2f}")
+    print(f"Total: ${total:.2f}")
 
 
 def bay_check(bay_num: int) -> Status:
@@ -201,7 +201,7 @@ def remove_car() -> int:
             return bay_choice + 1
 
 
-def find_repeat_customers() -> None:
+def find_repeat_customers() -> dict:
     customer_list = {}
 
     with open("data.txt", newline="") as f:
@@ -222,6 +222,8 @@ def find_repeat_customers() -> None:
     for name, stats in customer_list.items():
         if stats[0] > 1:
             print(f"{name:<30} {stats[0]:<20} {stats[1]:>20.2f}")
+
+    return customer_list
 
 
 def most_frequent(customer_list: dict) -> None:
