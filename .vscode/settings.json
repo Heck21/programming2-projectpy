@@ -1,0 +1,12 @@
+{
+    "cSpell.ignoreWords": [
+        "cust"
+    ],
+    "cSpell.ignorePaths": [
+        "package-lock.json",
+        "vscode-extension",
+        ".vscode",
+        "data.txt",
+        "generate.py"
+    ]
+}
