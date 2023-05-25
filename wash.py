@@ -1,5 +1,6 @@
 from enum import Enum, IntEnum
 from dataclasses import dataclass
+from datetime import date
 
 TOTAL_VEHICLE_CAPACITY: int = 20
 WASH_BAY_CAPACITY: int = 3
@@ -29,6 +30,8 @@ class Customer:
     plate_num: str
     pay_method: PaymentMethod
 
+
+current_date = date.today()
 
 SERVICE_COSTS = (
     0.0,
@@ -127,8 +130,24 @@ def calculate_total_cost(total_service_cost: float, tip: float, card: float) -> 
     return total_service_cost + tip + card
 
 
-def print_receipt():  # TODO: add function
-    pass
+def print_receipt(
+    customer: Customer,
+    total_service_cost: float,
+    tip: float,
+    card: float,
+    total: float,
+    date: date = current_date,
+) -> None:
+    print("RECEIPT\n")
+    print(f"Name: {customer.name}")
+    print(f"Date visited: {date:%d-%B-%Y}")
+    print(f"License plate #: {customer.plate_num}")
+    print(f"Method of payment: {customer.pay_method.name}")
+    print(f"Total service cost: {total_service_cost:.2f}")
+    print(f"Tip percentage: {TIP_PERCENTAGE:.0%}")
+    print(f"Tip amount: {tip:.2f}")
+    print(f"Card fee: {card:.2f}")
+    print(f"Total: {total:.2f}")
 
 
 def bay_check(bay_num: int) -> Status:
