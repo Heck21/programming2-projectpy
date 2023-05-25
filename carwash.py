@@ -47,12 +47,12 @@ def main() -> None:
                 customer = wash.record_information()
 
                 print(
-                    f"1. {'Wash and Vacuum':<35} {wash.SERVICE_COSTS[1]}\n"
-                    f"2. {'Engine Wash':<35} {wash.SERVICE_COSTS[2]}\n"
-                    f"3. {'Polishing':<35} {wash.SERVICE_COSTS[3]}\n"
-                    f"4. {'Buffing':<35} {wash.SERVICE_COSTS[4]}\n"
-                    f"5. {'Roof Cleaning':<35} {wash.SERVICE_COSTS[5]}\n"
-                    f"6. {'Interior Shampooing':<35} {wash.SERVICE_COSTS[6]}"
+                    f"1. {'Wash and Vacuum':<35} {wash.SERVICE_COSTS[1]:.2f}\n"
+                    f"2. {'Engine Wash':<35} {wash.SERVICE_COSTS[2]:.2f}\n"
+                    f"3. {'Polishing':<35} {wash.SERVICE_COSTS[3]:.2f}\n"
+                    f"4. {'Buffing':<35} {wash.SERVICE_COSTS[4]:.2f}\n"
+                    f"5. {'Roof Cleaning':<35} {wash.SERVICE_COSTS[5]:.2f}\n"
+                    f"6. {'Interior Shampooing':<35} {wash.SERVICE_COSTS[6]:.2f}"
                 )
 
                 while True:
@@ -166,8 +166,7 @@ def main() -> None:
             if customer_num < 1:
                 print("This cannot be selected.")
             else:
-                customer_list = wash.find_repeat_customers()
-                wash.most_frequent(customer_list)
+                wash.show_repeat_customers()
         elif selection == "d":
             if customer_num < 1 and bay_num < 1:
                 print("Cannot be selected.")
@@ -178,6 +177,8 @@ def main() -> None:
         else:
             print("Exiting program...")
             break
+
+    input("Press ENTER to close program...")
 
 
 if __name__ == "__main__":
