@@ -1,6 +1,7 @@
 from enum import Enum, IntEnum
 from dataclasses import dataclass
 from datetime import date
+from csv import DictReader
 
 TOTAL_VEHICLE_CAPACITY: int = 20
 WASH_BAY_CAPACITY: int = 3
@@ -198,3 +199,26 @@ def remove_car() -> int:
         else:
             bays[bay_choice] = Bay.VACANT
             return bay_choice + 1
+
+
+def find_repeat_customers() -> None:
+    customer_list = {}
+
+    with open("data.txt", newline="") as f:
+        fieldnames = ["name", "license_plate", "payment_method", "amount_spent"]
+        reader = DictReader(f, fieldnames=fieldnames)
+
+        for row in reader:
+            name = row["name"]
+            amount = float(row["amount_spent"])
+
+            if name not in customer_list:
+                customer_list[name] = [1, amount]
+            else:
+                customer_list[name][0] += 1
+                customer_list[name][1] += amount
+
+    print(f"{'NAME':<30} {'TIMES VISITED':<20} {'AMOUNT SPENT ($)':>20}")
+    for name, stats in customer_list.items():
+        if stats[0] > 1:
+            print(f"{name:<30} {stats[0]:<20} {stats[1]:>20.2f}")
