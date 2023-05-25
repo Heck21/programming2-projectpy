@@ -119,7 +119,8 @@ def main() -> None:
             if customer_num < 1:
                 print("This cannot be selected.")
             else:
-                wash.find_repeat_customers()
+                customer_list = wash.find_repeat_customers()
+                wash.most_frequent(customer_list)
         elif selection == "d":
             pass
         else:
