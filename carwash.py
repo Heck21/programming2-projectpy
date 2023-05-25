@@ -19,7 +19,7 @@ def main() -> None:
             "b)\tWash Car\n"
             "c)\tDisplay Returning Customers\n"
             "d)\tDisplay Sales Report\n"
-            "e)\tExit Program\n"
+            "e)\tExit Program"
         )
 
         while True:
@@ -72,7 +72,6 @@ def main() -> None:
                             choices[choice] = 0
 
                             service_cost = wash.calculate_service_cost(choice)
-
                             total_service_cost += service_cost
 
                             choice -= 1
@@ -114,7 +113,55 @@ def main() -> None:
             else:
                 print("Maximum capacity reached.")
         elif selection == "b":
-            pass
+            bay_status = wash.bay_check(bay_num)
+
+            wash.show_bay_status()
+            print(f"Number of customers: {customer_num}")
+            print(f"Number of car(s) in wash bay: {bay_num}")
+
+            while True:
+                print(
+                    "1.\tAdd car to wash bay\n"
+                    "2.\tRemove car from wash bay\n"
+                    "3.\tGo back to main menu"
+                )
+
+                while True:
+                    try:
+                        choice = int(input("Enter choice: "))
+                        if not 1 <= choice <= 3:
+                            raise ValueError
+                    except ValueError:
+                        print("Invalid entry.")
+                    else:
+                        break
+                break
+
+            if choice == 1:
+                if bay_status == wash.Status.NOT_FULL and customer_num >= 1:
+                    print("Adding car to wash bay...")
+
+                    bay_choice = wash.add_car()
+
+                    print(f"Added car to bay #{bay_choice}")
+
+                    bay_num += 1
+                    customer_num -= 1
+                else:
+                    print("Cannot be selected.")
+            elif choice == 2:
+                if bay_num >= 1:
+                    print("Removing car from bay...")
+
+                    bay_choice = wash.remove_car()
+
+                    print(f"Removed car from bay #{bay_choice}")
+
+                    bay_num -= 1
+                else:
+                    print("Cannot be selected.")
+            else:
+                print("Returning to main menu...")
         elif selection == "c":
             if customer_num < 1:
                 print("This cannot be selected.")
@@ -122,7 +169,12 @@ def main() -> None:
                 customer_list = wash.find_repeat_customers()
                 wash.most_frequent(customer_list)
         elif selection == "d":
-            pass
+            if customer_num < 1 and bay_num < 1:
+                print("Cannot be selected.")
+            else:
+                wash.display_sales(
+                    service_totals, total_customers, grand_total, tip_total
+                )
         else:
             break
 
