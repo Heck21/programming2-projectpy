@@ -247,7 +247,7 @@ def display_sales(
     grand_total: float,
     tip_total: float,
     date: date = current_date,
-) -> None:  # TODO: add function
+) -> None:
     print(f"Sales Report for {date: %d-%B-%Y}")
     print(f"{'SERVICE':<35} {'TOTAL ($)':>20}")
     print(f"{'Wash and Vacuum':<35} {totals[0]:>20.2f}")
