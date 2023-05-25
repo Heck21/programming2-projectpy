@@ -201,7 +201,7 @@ def remove_car() -> int:
             return bay_choice + 1
 
 
-def find_repeat_customers() -> dict:
+def show_repeat_customers() -> None:
     customer_list = {}
 
     with open("data.txt", newline="") as f:
@@ -222,17 +222,6 @@ def find_repeat_customers() -> dict:
     for name, stats in customer_list.items():
         if stats[0] > 1:
             print(f"{name:<30} {stats[0]:<20} {stats[1]:>20.2f}")
-
-    return customer_list
-
-
-def most_frequent(customer_list: dict) -> None:
-    sorted_dict = sorted(customer_list.items(), key=lambda item: item[1][0])
-
-    name, stats = sorted_dict[-1]
-
-    print("\nMOST FREQUENT CUSTOMER")
-    print(f"{name:<30} {stats[0]:<20}")
 
 
 def update_customer_total(cust_total: int) -> int:
