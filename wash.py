@@ -222,3 +222,28 @@ def find_repeat_customers() -> None:
     for name, stats in customer_list.items():
         if stats[0] > 1:
             print(f"{name:<30} {stats[0]:<20} {stats[1]:>20.2f}")
+
+
+def most_frequent(customer_list: dict) -> None:
+    sorted_dict = sorted(customer_list.items(), key=lambda item: item[1][0])
+
+    name, stats = sorted_dict[-1]
+
+    print("\nMOST FREQUENT CUSTOMER")
+    print(f"{name:<30} {stats[0]:<20}")
+
+
+def update_customer_total(cust_total: int) -> int:
+    cust_total += 1
+
+    return cust_total
+
+
+def display_sales(
+    totals: list[float],
+    cust_total: int,
+    grand_total: float,
+    tip_total: float,
+    date: date = current_date,
+) -> None:  # TODO: add function
+    pass
