@@ -176,6 +176,7 @@ def main() -> None:
                     service_totals, total_customers, grand_total, tip_total
                 )
         else:
+            print("Exiting program...")
             break
 
 
